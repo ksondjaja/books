@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@media screen and (max-width: 847px){
+    .navibar{
+      padding-right: 15px;
+      padding-bottom: 15px;
+    }
+    .navibar li{
+        padding: 5px;
+        font-size: 13px;
+    }
+    .main{
+        padding-left: 15px;
+        padding-top: 30px;
+    }
+    .main h1{
+        font-size: 24px;
+    }
+    .main form input{
+        width: 200px;
+    }
+    .main form button{
+        width: 60px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block title %}
+The Booklist | Already Saved
+{% endblock %}
+
+{% block body %}
+<div class="navibar">
+    <ul>
+        <li><a href="/logout">Log Out</a></li>
+        <li><a href="/welcome">Profile</a></li>
+        <li><b>Logged in as {{  checkuser  }}</b></li>
+    </ul>
+</div>
+<div class="main">
+    <br>
+    <h1><i>{{  result.title  }}</i> is already in your List</h1>
+    <p>
+        <a href="{{  url_for('book', book_id = result.id)  }}">Return to Book Page</a><br>
+        <a href="/welcome">Return to Profile Page</a>
+    </p>
+    <br>
+    <p><h4>Discover Books</h4>
+        <form action="{{  url_for('searchbook')  }}" method="post">
+            <input type="text" name="searchbook" size="50" placeholder="Type in book author, title, or ISBN"><button>Search</button><br>
+            <span class="small">Looking for something new? <a href="{{  url_for('random')  }}">Discover a random book</a> or <a href="{{  url_for('newreviews')  }}">Read most recent user reviews</a>.</span><br>
+        </form>
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+
+    .reviewtable{
+        margin: 0 auto;
+        width: 80%;
+        border-collapse: collapse;
+        font-family: Verdana, sans-serif;
+    }
+    .reviewtable tr td:nth-child(odd){
+        background-color: #b4dbd7;
+        padding-left: 40px;
+        padding-right: 20px;
+    }
+    .reviewtable tr td:nth-child(even){
+        background-color: #b4dbd7;
+        padding-left: 20px;
+        padding-right: 40px;
+        padding-top: 20px;
+    }
+    .reviewtable tr{
+        border: 10px solid #b4dbd7;
+    }
+    .reviewtable tr{
+        border: 10px solid white;
+    }
+    .reviewtable a:visited{
+        color: #4095f4;
+    }
+    .reviewtable a:hover{
+        color: #895f70;
+    }
+    .navibar a:hover{
+        color: #895f70;
+    }
+
+    @media screen and (max-width: 847px){
+        .navibar{
+          padding-right: 15px;
+          padding-bottom: 15px;
+          padding-top: 15px;
+        }
+        .navibar li{
+            padding: 5px;
+            font-size: 13px;
+        }
+        .main{
+            padding-left: 15px;
+            padding-top: 30px;
+        }
+        .main h1{
+            font-size: 30px;
+        }
+        .main form input{
+            width: 200px;
+        }
+        .main form button{
+            width: 70px;
+        }
+        .reviewtable{
+            font-size: 13px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .reviewtable tr td:nth-child(odd){
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        .reviewtable tr td:nth-child(even){
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+</style>
+{% endblock %}
+
+{% block title %}
+The Booklist | Most Recent User Reviews
+{% endblock %}
+
+{% block body %}
+<div class="navibar">
+    <ul>
+        <li><a href="/logout">Log Out</a></li>
+        <li><a href="/welcome">Profile</a></li>
+        <li><b>Logged in as {{  checkuser  }}</b></li>
+    </ul>
+</div>
+<div class="main">
+    <br>
+    <h1>Search The Booklist</h1>
+    <form action="{{  url_for('searchbook')  }}" method="post">
+        <input type="text" name="searchbook" size="50" placeholder="Type in book author, title, or ISBN"><button>Search</button><br>
+    </form>
+    <span class="small"><b>Looking for something new?</b> <a href="{{  url_for('random')  }}">Discover a random book</a></span>
+    <br>
+    <br>
+    <br>
+    <table class="reviewtable">
+        <h4>Showing 10 Most Recent User Reviews</h4><br>
+        {% for review in newreviews %}
+        <tr>
+            <td>
+                <img src="http://covers.openlibrary.org/b/isbn/{{ review.isbn  }}-S.jpg"><br>
+            </td>
+            <td>
+                <b><a href="{{  url_for('book', book_id = review.book_id)  }}">{{  review.title  }}</a></b> by {{  review.author  }} ({{  review. year  }})<br>
+                <b>{{  review.rating}} | {{  review.review_title  }}</b><br>
+                <b>By {{  review.username  }}</b> | On {{  review.date  }}<br>
+                {{  review.review_text  }}</p><br>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

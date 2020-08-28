@@ -1,0 +1,272 @@
+{% extends "layout.html" %}
+
+{% block links %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+.navibar a:hover{
+        color: #895f70;
+    }
+.col-5 {
+  float: left;
+  background-color: #b4dbd7;
+  text-align: left;
+  outline: 10px solid;
+  outline-color: white;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 15px;
+  padding-top: 15px;
+  left: 0;
+  font-family: Verdana, sans-serif; }
+  .col-5 h1 {
+    font-family: Verdana, sans-serif; }
+  .col-5 h2 {
+    font-family: Verdana, sans-serif; }
+  .col-5 h4 {
+    font-family: Verdana, sans-serif;
+    font-weight: bold; }
+  .col-5 p {
+    font-family: Verdana, sans-serif; }
+  .col-5 li {
+    font-family: Verdana, sans-serif;
+    font-size: 14px; }
+  .col-5 li a{
+    color: #4095f4; }
+  .col-5 li a:hover{
+    color: #895f70; }
+  .col-5 li a:visited{
+    color: #4095f4; }
+  .col-5 li a:visited:hover{
+    color: #895f70;
+  }
+  
+  .col-10 {
+    float: left;
+    background-color: #b4dbd7;
+    text-align: left;
+    outline: 10px solid;
+    outline-color: white;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 15px;
+    padding-top: 15px;
+    left: 0;
+    font-family: Verdana, sans-serif; }
+  .col-10 h1 {
+    font-family: Verdana, sans-serif; }
+  .col-10 h2 {
+    font-family: Verdana, sans-serif; }
+  .col-10 h4 {
+    font-family: Verdana, sans-serif;
+    font-weight: bold; }
+  .col-10 p {
+    font-family: Verdana, sans-serif; }
+  .col-10 li {
+    font-family: Verdana, sans-serif;
+    font-size: 14px; }
+  .col-10 a{
+    color: #4095f4; }
+  .col-10 a:hover{
+    color: #895f70; }
+  .col-10 a:visited{
+    color: #4095f4; }
+  .col-10 a:visited:hover{
+    color: #895f70;
+  }
+  
+  .col-12 a:hover{
+    color: #895f70;
+  }
+  .col-12 a:visited:hover{
+    color: #895f70;
+  }
+
+    @media screen and (max-width: 847px){
+        .navibar{
+          padding-right: 15px;
+          padding-bottom: 15px;
+          padding-top: 15px;
+        }
+        .navibar li{
+            padding: 5px;
+            font-size: 13px;
+        }
+        .main{
+            padding-left: 15px;
+            padding-top: 30px;
+        }
+        .col-5{
+          width: 95%;
+          float: left;
+          background-color: #b4dbd7;
+          text-align: left;
+          outline: 10px solid;
+          outline-color: white;
+          margin-left: 0.75%;
+          margin-right: 0.75%;
+          margin-bottom: 5px;
+          margin-top: 5px;
+          padding-left: 15px;
+          padding-top: 15px;
+          left: 0;
+          font-size: 14px }
+          .col-5 h1 {
+            font-family: Verdana, sans-serif; }
+          .col-5 h2 {
+            font-family: Verdana, sans-serif; }
+          .col-5 h4 {
+            font-family: Verdana, sans-serif;
+            font-weight: bold;
+            font-size: 20px; }
+          .col-5 p {
+            font-family: Verdana, sans-serif; }
+          .col-5 li {
+            font-family: Verdana, sans-serif;
+            font-size: 14px; }
+          .col-5 ul {
+          padding-left: 10px;
+          padding-right: 15px;}
+          
+          .col-10 {
+            width: 95%;
+            margin-left: 0.75%;
+            margin-right: 0.75%;
+            float: left;
+            background-color: #b4dbd7;
+            text-align: left;
+            outline: 10px solid;
+            outline-color: white;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            padding-left: 15px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            left: 0;
+            font-size: 14px; }
+          .col-10 h1 {
+            font-family: Verdana, sans-serif; }
+          .col-10 h2 {
+            font-family: Verdana, sans-serif; }
+          .col-10 h4 {
+            font-family: Verdana, sans-serif;
+            font-weight: bold;
+            font-size: 20px; }
+          .col-10 p {
+            font-family: Verdana, sans-serif; }
+          .col-10 li {
+            font-family: Verdana, sans-serif;
+            font-size: 14px; }
+          .col-10 ul {
+            padding-left: 10px;
+            padding-right: 15px;
+          }
+
+          .col-12 {
+            height: 150px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-bottom: 15px; }
+          .col-12 form input{
+            width: 200px;
+          }
+          .col-12 form button{
+            width: 70px;
+          }
+          .col-12 h1 {
+            font-family: Verdana, sans-serif; }
+          .col-12 h2 {
+            font-family: Verdana, sans-serif; }
+          .col-12 h4 {
+            font-family: Verdana, sans-serif;
+            font-weight: bold; }
+          .col-12 p {
+            font-family: Verdana, sans-serif;
+            font-size: 13px; }
+          .col-12 li {
+            font-family: Verdana, sans-serif; }
+        
+        }
+</style>
+{% endblock %}
+
+{% block title %}
+The Booklist | Welcome
+{% endblock %}
+
+{% block body %}
+<div class="navibar">
+    <ul>
+        <li><a href="/logout">Log Out</a></li>
+    </ul>
+</div>
+<div class="main">
+    <br>
+    <h1>Welcome back, {{  checkuser  }}!</h1>
+    <br>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+        <h4>Search The Booklist</h4>
+        <form action="{{  url_for('searchbook')  }}" method="post">
+            <input type="text" name="searchbook" placeholder="Type in book author, title, or ISBN"><button>Search</button><br>
+        </form>
+        <br>
+        <p><b>Looking for something new?</b> <a href="{{  url_for('random')  }}">Discover a random book</a> or <a href="{{  url_for('newreviews')  }}">Read most recent user reviews</a>.</p>
+        <br>
+        <br>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-5">
+        <h4>My Booklist</h4>
+            <ul>{% for bllist in bl %}
+                    {% for onebl in bllist%}
+                        {% if onebl is string %}
+                        You have no books saved
+                        {% else %}
+                        <li><a href="{{  url_for('book', book_id=onebl.id)  }}"><i>{{  onebl.title  }}</i> by {{  onebl.author  }} ({{  onebl.year  }})</a> </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-5">
+        <h4>My To-Read List</h4>
+            <ul>{% for trllist in trl %}
+                    {% for onetrl in trllist%}
+                        {% if onetrl is string %}
+                        You have no books saved
+                        {% else %}
+                        <li><a href="{{  url_for('book', book_id=onetrl.id)  }}"><i>{{  onetrl.title  }}</i> by {{  onetrl.author  }} ({{  onetrl.year  }})</a></li>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <h4>My Recent Reviews</h4>
+            <ul>{% if myreviews is string %}
+            <p>You have not submitted any book review</p>
+            {% else %}
+                {% for review in myreviews %}
+                <p><b><a href="{{  url_for('book', book_id=review.book_id)  }}">{{  review.title  }}</a> by {{  review.author  }} ({{  review.year  }})<br>
+                {{  review.rating  }} | {{  review.review_title  }} |</b> <i>On {{  review.date  }}</i><br>
+                {{  review.review_text  }}</p>
+                {% endfor %}
+            {% endif %}
+            </ul>
+        </div>
+    </div>            
+</div>    
+
+{% endblock %}

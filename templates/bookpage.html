@@ -1,0 +1,155 @@
+{% extends "layout.html" %}
+
+{% block links%}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    .navibar{
+        height: 100px;
+        margin-left: 25%;
+        width: 75%;
+    }
+    .navibar a:hover{
+        color: #895f70;
+    }
+    .remove a{
+        color: #9B111E;
+        text-decoration: none;}
+    .remove a:visited{
+        color: #9B111E;
+        text-decoration: none;
+    }
+
+    @media screen and (max-width: 847px){
+        .navibar{
+            float: left;
+            height: 150px;
+            margin-left: 0px;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 0px;
+            padding-bottom: 15px;
+        }
+        .navibar form input{
+            width: 200px;
+        }
+        .navibar form button{
+            width: 55px;
+        }
+        .navibar li{
+            padding: 5px;
+            font-size: 13px;
+            padding-bottom: 10px;
+        }
+        .sidenav{
+            margin-left: 0px;
+            width: 100%;
+            height: auto;
+            text-align: center;
+            position: static;
+            margin-top: 170px;
+            margin-right: 0px;
+            overflow-x: hidden;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-bottom: 10px;
+        }
+        .mainside{
+            overflow-x: hidden;
+            width: 95%;
+            margin-left: 3%;
+            margin-right: 2%;
+            margin-top: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-top: 10px
+        }
+        .mainside form input{
+            width: 79%;
+        }
+        .mainside form textarea{
+            width: 95%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+The Booklist | {{  result.title  }} | {{  result.author  }}
+{% endblock %}
+
+{% block body %}
+<div class="navibar">
+    <ul>
+        <li><a href="/logout">Log Out</a></li>
+        <li><a href="/welcome">Profile</a></li>
+        <li><b>Logged in as {{  checkuser  }}</b></li>
+        <form action="{{  url_for('searchbook')  }}" method="post">
+            <span class="big">Search The Booklist</span><br>
+            <input type="text" name="searchbook" size="50" placeholder="Type in book author, title, or ISBN"><button>Search</button><br>
+            <span class="small">Looking for something new? <a href="{{  url_for('random')  }}">Discover a random book</a>  or <a href="{{  url_for('newreviews')  }}">Read most recent user reviews</a>.</span>
+        </form>
+        
+    </ul>
+</div>
+<div class="sidenav">
+    <img src="http://covers.openlibrary.org/b/isbn/{{ result.isbn  }}-M.jpg"><br>
+    <h2>{{  result.title  }}</h2>
+    <h4>{{  result.author  }}</h4>
+    <p>Published: {{  result.year  }}<br>
+    ISBN: {{  result.isbn  }}</p>
+    <p>GoodReads Rating: {{  grrating  }}<br>
+    The Booklist Rating: {{  blrating  }}</p>
+        
+
+    <p>
+        {% if saved %}
+        <span class="remove"><a href="{{  url_for('removesaved', book_id=result.id)  }}">Remove from Your Booklist</a></span><br>
+        {% else %}
+        <a href="{{  url_for('savebook', book_id=result.id)  }}">Save to Your Booklist</a><br>
+        {% endif %}
+
+        {% if toread %}
+        <span class="remove"><a href="{{  url_for('removetoread', book_id=result.id)}}">Remove from Your To-Read List</a></span>
+        {% else %}
+        <a href="{{  url_for('toreadbook', book_id=result.id)  }}">Save to Your To-Read List</a>
+        {% endif %}
+    </p>
+    <br>
+    <p><a href="{{  url_for('book_api', book_id=result.id)  }}">Get API of Book Info</a><br>
+    <a href="{{  url_for('reviews_api', book_id=result.id)  }}">Get API of User Reviews</a></p>
+    <br>
+</div>
+<div class="mainside">
+    <br>
+    <h4>The Booklist User Reviews</h4>
+        {% if reviews is string %}
+            <p>There are no reviews yet for this book</p>
+        {% else %}
+            {% for review in reviews %}
+                <p><b>{{  review.rating}} | {{  review.review_title  }}</b><br>
+                <b>By {{  review.username  }}</b> | On {{  review.date  }}<br>
+                {{  review.review_text  }}</p>
+                <br>
+            {% endfor %}
+        {% endif %}
+    <br>
+    <br>
+    <p><h4>Write a Review</h4>
+        <form action="{{  url_for('writereview', book_id=result.id)  }}" method="post">
+            Rate Book: 
+            <select name="rating">
+                <option value=5.0>5</option>
+                <option value=4.0>4</option>
+                <option value=3.0>3</option>
+                <option value=2.0>2</option>
+                <option value=1.0>1</option>
+            </select> / 5<br>
+            Title: <input name="titlereview" type="text" placeholder="Give a title to your review" size="50" maxlength="50" required><br>
+            <textarea name="writereview" maxlength="8000" required>Write your review...</textarea><br>
+            <span class="small">(Maximum length of review is 8000 characters) </span>
+            <button>Continue</button>
+        </form>
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@media screen and (max-width: 847px){
+    .navibar{
+      padding-right: 15px;
+      padding-bottom: 15px;
+    }
+    .navibar li{
+        padding: 5px;
+        font-size: 13px;
+    }
+    .main{
+        padding-left: 15px;
+        padding-top: 30px;
+        font-size: 14px;
+    }
+    .main h1{
+        font-size: 26px;
+    }
+    .main form input{
+        width: 79%;
+    }
+    .main form textarea{
+        width: 95%;
+    }
+    .main ul{
+        padding-left: 10px;
+    }
+    .rev{
+        font-size: 14;
+        font-style: Verdana, sans-serif;
+    }
+}
+</style>
+{% endblock %}
+
+{% block title %}
+The Booklist | Confirm Your Review Submission for {{  result.title  }} | {{  result.author  }}
+{% endblock %}
+
+{% block body %}
+<div class="navibar">
+    <ul>
+        <li><a href="/logout">Log Out</a></li>
+        <li><a href="/welcome">Profile</a></li>
+        <li><b>Logged in as {{  checkuser  }}</b></li>
+    </ul>
+</div>
+
+<div class="main">
+<br>
+<h1>Confirm Your Review Submission</h1>
+<p>{{  message  }}</p>
+<br>
+<span class="big">Your Review:</span><br>
+<ul>
+<span class="rev"><i><b>Rating</b> {{  rating  }}<br>
+<b>{{  titlereview  }}</b><br>
+{{  writereview  }}</i></span>
+</ul>
+<br>
+<h4>Edit:</h4>
+<form action="{{  url_for('checkreview', book_id=result.id)  }}" method="post">
+    Title: <input name="titlereview" type="text" value="{{  titlereview  }}" size="50" maxlength="50" required><br>
+    <textarea name="writereview" maxlength="8000" required>{{  writereview  }}</textarea><br>
+    <span class="small">(Maximum length of review is 8000 characters) </span>
+    <button>Submit</button>
+</form>
+</p>
+</div>
+
+{% endblock %}

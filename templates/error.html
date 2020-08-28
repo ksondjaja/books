@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    @media screen and (max-width: 847px) and (min-width:0px){
+        .main{
+            padding-left: 30px;
+            padding-top: 30px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+The Booklist | Error
+{% endblock %}
+
+{% block body %}
+<div class="main">
+<h1>Error</h1>
+<p>{{  message  }}</p>
+<p><a href="/">Return to Home Page</a></p>
+</div>
+{% endblock %}

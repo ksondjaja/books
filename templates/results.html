@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+
+{% block links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+    .rslttable{
+        margin: 0 auto;
+        width: 90%;
+        border-collapse: collapse;
+    }
+    .rslttable th, td{
+        font-style: Verdana, sans-serif;
+    }
+    .rslttable th{
+        text-align: left;
+        background-color: #b3a8ff;
+    }
+    .rslttable tr:nth-child(odd){
+        background-color: #e9e6fd;
+    }
+    .rslttable tr:nth-child(even){
+        background-color: white;
+    }
+    @media screen and (max-width: 847px){
+        .main form input{
+            width: 200px;
+        }
+        .main form button{
+            width: 55px;
+        }
+        .main h1{
+            font-size: 30px;
+        }
+        .navibar li{
+            padding: 5px;
+            font-size: 13px;
+            padding-bottom: 10px;
+        }
+        .navibar{
+          padding-right: 15px;
+          padding-bottom: 15px;
+        }
+        .main{
+            padding-left: 15px;
+            padding-top: 30px;
+        }
+        .rslttable{
+            margin: 0 auto;
+            width: 98%;
+            font-size: 14px;
+        }
+        .rslttable th{
+            background-color: #b3a8ff;
+            padding-left: 3px;
+            padding-right: 3px;
+            text-align: left;
+        }
+        .rslttable td{
+            padding-left: 3px;
+            padding-right: 3px;
+            text-align: left;
+        }
+        .rslttable tr:nth-child(odd){
+            background-color: #e9e6fd;
+        }
+        .rslttable tr:nth-child(even){
+            background-color: white;
+        }
+    }
+  </style>
+{% endblock %}
+
+{% block title %}
+The Booklist | Search Results
+{% endblock %}
+
+{% block body %}
+<div class="navibar">
+    <ul>
+        <li><a href="/logout">Log Out</a></li>
+        <li><a href="/welcome">Profile</a></li>
+        <li><b>Logged in as {{  checkuser  }}</b></li>
+    </ul>
+</div>
+<div class="main">
+    <br>
+    <h1>Search The Booklist</h1>
+    <form action="{{  url_for('searchbook')  }}" method="post">
+        <input type="text" name="searchbook" size="50" placeholder="Type in book author, title, or ISBN"><button>Search</button><br>
+    </form>
+    <span class="small"><b>Looking for something new?</b> <a href="{{  url_for('random')  }}">Discover a random book</a> or <a href="{{  url_for('newreviews')  }}">Read most recent user reviews</a>.</span>
+    <br>
+    <br>
+    <br>
+    <table class="rslttable">
+        <h4>Search Results</h4><br>
+        <tr>
+            <th>
+                <b>Author</b>
+            </th>
+            <th>
+                <b>Title</b>
+            </th>
+            <th>
+                <b>Year</b>
+            </th>
+            <th>
+                <b>ISBN</b>
+            </div>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>
+                {{  result.author  }}
+            </td>
+            <td>
+                <a href="{{  url_for('book', book_id = result.id)  }}">{{  result.title  }}</a>
+            </td>
+            <td>
+                {{  result.year  }}
+            </td>
+            <td>
+                {{  result.isbn  }}
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td>
+                No title, author, or ISBN containing "{{  searchbook  }}" is found in our database.
+            </td>
+        </td>
+        {% endfor %}
+    </table>
+</div>
+<br>
+<br>
+{% endblock %}
